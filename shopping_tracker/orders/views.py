@@ -6,11 +6,6 @@ from .serializers import *
 from rest_framework import generics
 
 
-class BrandListAPIView(generics.ListAPIView):
-    queryset = Brand.objects.all()
-    serializer_class = BrandSerializer
-
-
-class BrandCreateAPIView(generics.CreateAPIView):
+class BrandListCreateAPIView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
