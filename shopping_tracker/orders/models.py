@@ -1,6 +1,7 @@
 from django.db import models
-
 from taggit.managers import TaggableManager
+
+
 # Create your models here.
 
 
@@ -45,4 +46,3 @@ class PurchasedProduct(TimestampedModel):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-
