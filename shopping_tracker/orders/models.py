@@ -29,6 +29,9 @@ class Product(models.Model):
     objects = models.Manager()
     tags = TaggableManager(blank=True)
 
+    class Meta:
+        unique_together = ('name', 'brand')
+
 
 class Shop(models.Model):
     name = models.CharField(max_length=200, unique=True)

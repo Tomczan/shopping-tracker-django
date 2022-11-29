@@ -8,9 +8,17 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields = ['id', 'name']
 
-    def validate_name(self, value):
-        qs = Brand.objects.filter(name__exact=value.title())
-        if qs.exists():
-            raise serializers.ValidationError(
-                f"Brand '{value}' already exists.")
-        return value.title()
+
+class ProductSerializer(serializers.ModelSerializer):
+    brand = serializers.CharField()
+
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'brand']
+
+    def create(self, validated_data):
+        print(validated_data)
+        brand_name = validated_data.pop('brand')
+        brand, _ = Brand.objects.get_or_create(name=brand_name)
+        product = Product.objects.create(**validated_data, brand=brand)
+        return product
