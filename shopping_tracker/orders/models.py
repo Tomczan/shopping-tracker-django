@@ -1,3 +1,4 @@
+from django.core.exceptions import NON_FIELD_ERRORS
 from django.db import models
 from taggit.managers import TaggableManager
 
@@ -30,7 +31,11 @@ class Product(models.Model):
     tags = TaggableManager(blank=True)
 
     class Meta:
-        unique_together = ('name', 'brand')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['brand', 'name'],
+                name="unique_product_with_a_particular_brand")
+        ]
 
 
 class Shop(models.Model):
