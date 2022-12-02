@@ -35,3 +35,9 @@ class ProductSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'error': 'Product with this brand already exist.'}
             )
+
+
+class ShopSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shop
+        fields = ['id', 'name']
