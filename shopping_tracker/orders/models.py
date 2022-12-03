@@ -37,6 +37,9 @@ class Product(models.Model):
                 name="unique_product_with_a_particular_brand")
         ]
 
+    def __str__(self):
+        return self.name
+
 
 class Shop(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -54,3 +57,6 @@ class PurchasedProduct(TimestampedModel):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.product.name} bought in {self.shop.name}'
