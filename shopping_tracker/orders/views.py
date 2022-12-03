@@ -19,3 +19,8 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 class ShopListCreateAPIView(generics.ListCreateAPIView):
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
+
+
+class PurchasedProductListCreateAPIView(generics.ListCreateAPIView):
+    queryset = PurchasedProduct.objects.all()
+    serializer_class = PurchasedProductSerializer

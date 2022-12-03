@@ -41,3 +41,13 @@ class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = ['id', 'name']
+
+
+class PurchasedProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    shop = ShopSerializer()
+
+    class Meta:
+        model = PurchasedProduct
+        fields = ['id', 'price', 'discount_price', 'opened', 'finished',
+                  'product', 'shop']
