@@ -44,10 +44,22 @@ class ShopSerializer(serializers.ModelSerializer):
 
 
 class PurchasedProductSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
-    shop = ShopSerializer()
+    product = serializers.CharField(source='product.name')
+    product_brand = serializers.CharField(source='product.brand')
+    shop = serializers.CharField(source='shop.name')
 
     class Meta:
         model = PurchasedProduct
         fields = ['id', 'price', 'discount_price', 'opened', 'finished',
-                  'product', 'shop']
+                  'product', 'product_brand', 'shop']
+
+    def create(self, validated_data):
+        product_data = validated_data.pop('product')
+        brand, _ = Brand.objects.get_or_create(name=product_data['brand'])
+        product, _ = Product.objects.get_or_create(
+            name=product_data['name'], brand=brand)
+        shop_data = validated_data.pop('shop')
+        shop, _ = Shop.objects.get_or_create(name=shop_data['name'])
+        purchased_product = PurchasedProduct.objects.create(
+            **validated_data, product=product, shop=shop)
+        return purchased_product
