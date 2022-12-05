@@ -51,7 +51,7 @@ class Shop(models.Model):
 class PurchasedProduct(TimestampedModel):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     discount_price = models.DecimalField(
-        max_digits=7, decimal_places=2, blank=True)
+        max_digits=7, decimal_places=2, null=True, blank=True)
     opened = models.DateField(blank=True, null=True)
     finished = models.DateField(blank=True, null=True)
 
