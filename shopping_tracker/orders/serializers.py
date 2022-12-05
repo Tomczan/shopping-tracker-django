@@ -67,44 +67,28 @@ class PurchasedProductCreateSerializer(serializers.ModelSerializer):
                   'product_id', 'shop_id']
 
     def create(self, validated_data):
-        print(validated_data)
-        # product_data = validated_data.pop('product')
-        # brand, _ = Brand.objects.get_or_create(name=product_data['brand'])
-        # product, _ = Product.objects.get_or_create(
-        #     name=product_data['name'], brand=brand)
-        # shop_data = validated_data.pop('shop')
-        # shop, _ = Shop.objects.get_or_create(name=shop_data['name'])
-        # purchased_product = PurchasedProduct.objects.create(
-        #     **validated_data, product=product, shop=shop)
-        # brand_id = validated_data.pop('brand')['id']
-        # brand = Brand.objects.get(id=brand_id)
-
+        # get a product object
         product_id = validated_data.pop('product')['id']
         product = Product.objects.get(id=product_id)
 
+        # get a shop object
         shop_id = validated_data.pop('shop')['id']
         shop = Shop.objects.get(id=shop_id)
 
+        # create a purchased_product object
         purchased_product = PurchasedProduct.objects.create(
             **validated_data, product=product, shop=shop)
         return purchased_product
 
     def validate(self, data):
-        # print(f'validate data: {data}')
-
-        # brand_id = data.get('brand')['id']
-        # # print(brand_id)
-        # if not Brand.objects.filter(id=brand_id).exists():
-        #     raise serializers.ValidationError(
-        #         {'error': 'Brand with this id does not exist.'}
-        #     )
-
+        # check if product exist
         product_id = data.get('product')['id']
         if not Product.objects.filter(id=product_id).exists():
             raise serializers.ValidationError(
                 {'error': 'Product with this id does not exist.'}
             )
 
+        # check if shop exist
         shop_id = data.get('shop')['id']
         if not Shop.objects.filter(id=shop_id).exists():
             raise serializers.ValidationError(
