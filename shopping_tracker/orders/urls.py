@@ -9,6 +9,4 @@ urlpatterns = [
     path('shop/', ShopListCreateAPIView.as_view(), name="shop-list"),
     path('purchased-product/', PurchasedProductListAPIView.as_view(),
          name="purchased-product-list"),
-    path('purchased-product/create/', PurchasedProductCreateAPIView.as_view(),
-         name="purchased-product-create"),
 ]

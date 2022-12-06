@@ -62,27 +62,18 @@ class ShopSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class PurchasedProductNestedListSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
-    shop = ShopSerializer()
-    created = serializers.DateTimeField(format="%d-%m-%Y")
-    updated = serializers.DateTimeField(format="%d-%m-%Y")
+class PurchasedProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    shop = ShopSerializer(read_only=True)
+    product_id = serializers.CharField(source='product.id', write_only=True)
+    shop_id = serializers.CharField(source='shop.id', write_only=True)
+    created = serializers.DateTimeField(format="%d-%m-%Y", read_only=True)
+    updated = serializers.DateTimeField(format="%d-%m-%Y", read_only=True)
 
     class Meta:
         model = PurchasedProduct
         fields = ['id', 'price', 'discount_price', 'opened', 'finished',
-                  'created', 'updated', 'product', 'shop']
-
-
-class PurchasedProductCreateSerializer(serializers.ModelSerializer):
-    # brand_id = serializers.CharField(source='brand.id')
-    product_id = serializers.CharField(source='product.id')
-    shop_id = serializers.CharField(source='shop.id')
-
-    class Meta:
-        model = PurchasedProduct
-        fields = ['price', 'discount_price', 'opened', 'finished',
-                  'product_id', 'shop_id']
+                  'created', 'updated', 'product', 'shop', 'product_id', 'shop_id']
 
     def create(self, validated_data):
         # get a product object
