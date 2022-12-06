@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator
+# from rest_framework.validators import UniqueTogetherValidator
 
 from .models import *
 
@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = UserModel.objects.create_user(**validated_data)
-        
+
         return user
 
 
@@ -106,7 +106,7 @@ class PurchasedProductCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'error': 'Product with this id does not exist.'}
             )
-            
+
         # check if shop exist
         shop_id = data.get('shop')['id']
         if not Shop.objects.filter(id=shop_id).exists():
