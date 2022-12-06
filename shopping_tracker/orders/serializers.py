@@ -12,11 +12,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserModel
-        field = ('id', 'username', 'password')
+        fields = ('id', 'username', 'password')
 
     def create(self, validated_data):
         user = UserModel.objects.create_user(**validated_data)
-
+        
         return user
 
 
@@ -42,6 +42,7 @@ class ProductSerializer(serializers.ModelSerializer):
         brand_name = validated_data.pop('brand')
         brand, _ = Brand.objects.get_or_create(name=brand_name)
         product = Product.objects.create(**validated_data, brand=brand)
+
         return product
 
     def validate(self, data):
@@ -51,7 +52,8 @@ class ProductSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'error': 'Product with this brand already exist.'}
             )
-        return True
+
+        return data
 
 
 class ShopSerializer(serializers.ModelSerializer):
@@ -94,6 +96,7 @@ class PurchasedProductCreateSerializer(serializers.ModelSerializer):
         # create a purchased_product object
         purchased_product = PurchasedProduct.objects.create(
             **validated_data, product=product, shop=shop)
+
         return purchased_product
 
     def validate(self, data):
@@ -103,7 +106,7 @@ class PurchasedProductCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'error': 'Product with this id does not exist.'}
             )
-
+            
         # check if shop exist
         shop_id = data.get('shop')['id']
         if not Shop.objects.filter(id=shop_id).exists():
