@@ -1,9 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
+from rest_framework import generics
 
 from .models import *
 from .serializers import *
-
-from rest_framework import generics
 
 
 class BrandListCreateAPIView(generics.ListCreateAPIView):
@@ -29,3 +29,8 @@ class PurchasedProductListAPIView(generics.ListAPIView):
 class PurchasedProductCreateAPIView(generics.CreateAPIView):
     queryset = PurchasedProduct.objects.all()
     serializer_class = PurchasedProductCreateSerializer
+
+
+class UserCreateAPIView(generics.CreateAPIView):
+    model = get_user_model()
+    serializer_class = UserSerializer
