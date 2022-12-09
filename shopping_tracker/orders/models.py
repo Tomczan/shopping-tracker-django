@@ -1,7 +1,8 @@
+from django.conf import settings
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.db import models
-from taggit.managers import TaggableManager
 
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -55,6 +56,8 @@ class PurchasedProduct(TimestampedModel):
     opened = models.DateField(blank=True, null=True)
     finished = models.DateField(blank=True, null=True)
 
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
