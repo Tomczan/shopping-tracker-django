@@ -26,6 +26,9 @@ class PurchasedProductListAPIView(generics.ListCreateAPIView):
     queryset = PurchasedProduct.objects.all()
     serializer_class = PurchasedProductSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class UserCreateAPIView(generics.CreateAPIView):
     model = get_user_model()
