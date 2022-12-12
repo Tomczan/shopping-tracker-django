@@ -45,6 +45,18 @@ class ShopListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ShopSerializer
 
 
+class ShopUpdateAPIView(generics.UpdateAPIView):
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+    lookup_field = 'pk'
+
+
+class ShopDestroyAPIView(generics.DestroyAPIView):
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+    lookup_field = 'pk'
+
+
 class PurchasedProductListAPIView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = PurchasedProduct.objects.all()
