@@ -8,6 +8,7 @@ urlpatterns = [
     path('auth-token/', obtain_auth_token,
          name="obtain-auth-token"),
     path('brand/', BrandListCreateAPIView.as_view(), name="brand-list"),
+    path('brand/<int:pk>/update', BrandUpdateAPIView.as_view(), name="brand-update"),
     path('product/', ProductListCreateAPIView.as_view(), name="product-list"),
     path('shop/', ShopListCreateAPIView.as_view(), name="shop-list"),
     path('purchased-product/', PurchasedProductListAPIView.as_view(),
