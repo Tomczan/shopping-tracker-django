@@ -17,6 +17,12 @@ class BrandUpdateAPIView(generics.UpdateAPIView):
     lookup_field = 'pk'
 
 
+class BrandDestroyAPIView(generics.DestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    lookup_field = 'pk'
+
+
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
