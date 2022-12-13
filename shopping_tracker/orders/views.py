@@ -24,8 +24,14 @@ class BrandDestroyAPIView(generics.DestroyAPIView):
 
 
 class ProductListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        brand = self.request.query_params.get('brand')
+        if brand is not None:
+            queryset = Product.objects.filter(brand__name__icontains=brand)
+        return queryset
 
 
 class ProductUpdateAPIView(generics.UpdateAPIView):
