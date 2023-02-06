@@ -20,5 +20,5 @@ class ShopAdmin(admin.ModelAdmin):
 
 @admin.register(PurchasedProduct)
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ['product', 'price', 'discount_price',
+    list_display = ['product', 'author',  'price', 'discount_price',
                     'opened', 'finished', 'shop', 'created', 'updated']
