@@ -91,18 +91,21 @@ class PurchasedProductSerializer(serializers.ModelSerializer):
         return purchased_product
 
     def validate(self, data):
+        errors = []
         # check if product exist
         product_id = data.get('product')['id']
         if not Product.objects.filter(id=product_id).exists():
-            raise serializers.ValidationError(
-                {'error': 'Product with this id does not exist.'}
+            errors.append('Product with this id does not exist.'
             )
 
         # check if shop exist
         shop_id = data.get('shop')['id']
         if not Shop.objects.filter(id=shop_id).exists():
-            raise serializers.ValidationError(
-                {'error': 'Shop with this id does not exist.'}
+            errors.append(
+                'Shop with this id does not exist.'
             )
+        
+        if errors:
+            raise serializers.ValidationError(errors)
 
         return data
