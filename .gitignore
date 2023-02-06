@@ -129,5 +129,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#vscode workspace
+# vscode workspace
 *.code-workspace
+
+# TODO list
+todo.md
