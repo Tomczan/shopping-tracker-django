@@ -46,7 +46,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return product
 
     def validate(self, data):
-        # temporary solution, more information about solution:
+        # temporary solution, more information about:
         # https://github.com/encode/django-rest-framework/issues/7173
         if Product.objects.filter(name=data['name'], brand__name=data['brand']).exists():
             raise serializers.ValidationError(
@@ -96,7 +96,7 @@ class PurchasedProductSerializer(serializers.ModelSerializer):
         product_id = data.get('product')['id']
         if not Product.objects.filter(id=product_id).exists():
             errors.append('Product with this id does not exist.'
-            )
+                          )
 
         # check if shop exist
         shop_id = data.get('shop')['id']
@@ -104,7 +104,7 @@ class PurchasedProductSerializer(serializers.ModelSerializer):
             errors.append(
                 'Shop with this id does not exist.'
             )
-        
+
         if errors:
             raise serializers.ValidationError(errors)
 
