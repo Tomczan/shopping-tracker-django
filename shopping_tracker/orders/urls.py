@@ -20,4 +20,6 @@ urlpatterns = [
     path('shop/<int:pk>/delete', ShopDestroyAPIView.as_view(), name="shop-delete"),
     path('purchased-product/', PurchasedProductListAPIView.as_view(),
          name="purchased-product-list"),
+    path('my-products/', UserProductListAPIView.as_view(),
+         name="user-product-list"),
 ]

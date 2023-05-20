@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -72,6 +72,14 @@ class PurchasedProductListAPIView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+class UserProductListAPIView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PurchasedProductSerializer
+
+    def get_queryset(self):
+        return PurchasedProduct.objects.filter(author=self.request.user)
 
 
 class UserCreateAPIView(generics.CreateAPIView):
