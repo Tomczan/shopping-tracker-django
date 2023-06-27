@@ -9,16 +9,16 @@ class ShopAdmin(admin.ModelAdmin):
 
 
 @admin.register(Brand)
-class ShopAdmin(admin.ModelAdmin):
+class BrandAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 
 @admin.register(Product)
-class ShopAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'brand']
 
 
 @admin.register(PurchasedProduct)
-class ShopAdmin(admin.ModelAdmin):
-    list_display = ['product', 'author',  'price', 'discount_price',
+class PurchasedProductAdmin(admin.ModelAdmin):
+    list_display = ['product', 'id', 'author',  'price', 'discount_price',
                     'opened', 'finished', 'shop', 'created', 'updated']
