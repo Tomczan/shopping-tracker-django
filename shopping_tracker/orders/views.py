@@ -79,6 +79,9 @@ class UserProductListAPIView(generics.ListAPIView):
     serializer_class = PurchasedProductSerializer
 
     def get_queryset(self):
+        product_id = self.kwargs.get("pk")
+        if (product_id):
+            return PurchasedProduct.objects.filter(product_id=product_id).filter(author=self.request.user)
         return PurchasedProduct.objects.filter(author=self.request.user)
 
 

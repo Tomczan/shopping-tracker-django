@@ -22,4 +22,6 @@ urlpatterns = [
          name="purchased-product-list"),
     path('my-products/', UserProductListAPIView.as_view(),
          name="user-product-list"),
+    path('my-products/<int:pk>/', UserProductListAPIView.as_view(),
+         name="user-product-detail"),
 ]
