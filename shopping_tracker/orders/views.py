@@ -9,7 +9,7 @@ from .serializers import *
 
 
 class BrandListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Brand.objects.all()
+    queryset = Brand.objects.filter(approved=True)
     serializer_class = BrandSerializer
 
 
@@ -49,7 +49,7 @@ class ProductDestroyAPIView(generics.DestroyAPIView):
 
 
 class ShopListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Shop.objects.all()
+    queryset = Shop.objects.filter(approved=True)
     serializer_class = ShopSerializer
 
 

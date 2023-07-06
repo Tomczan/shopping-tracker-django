@@ -16,7 +16,16 @@ class TimestampedModel(models.Model):
         abstract = True
 
 
-class Brand(models.Model):
+class ValidatableModel(models.Model):
+    added_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+
+class Brand(ValidatableModel):
     name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
@@ -42,7 +51,7 @@ class Product(models.Model):
         return self.name
 
 
-class Shop(models.Model):
+class Shop(ValidatableModel):
     name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
@@ -60,11 +69,9 @@ class PurchasedProduct(TimestampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    
+
     class Meta:
         ordering = ['-updated', 'product']
 
     def __str__(self):
         return f'{self.product.name} bought in {self.shop.name}'
-
-    
