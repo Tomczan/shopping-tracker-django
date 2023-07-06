@@ -10,7 +10,7 @@ class ShopAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'added_by', 'approved']
 
 
 @admin.register(Product)
